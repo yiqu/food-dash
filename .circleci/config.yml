@@ -16,7 +16,7 @@ jobs:
             - ~/.cache
       - run: echo "Building for PROD"
       - run: |
-          if [ "${CIRCLE_BRANCH}" == "master" ]; then
+          if [ "${CIRCLE_BRANCH}" == "main" ]; then
             npm run build
           else
             npm -v
