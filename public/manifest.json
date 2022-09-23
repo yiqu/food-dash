@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Food Dash",
+  "name": "Food Dash",
   "icons": [
     {
       "src": "favicon.ico",
