@@ -1,5 +1,6 @@
 import React from 'react';
 import Core from './core/Core';
+import './App.scss';
 import { AppThemeContextProvider } from './store/context/theme-context';
 
 function App() {
