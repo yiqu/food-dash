@@ -3,13 +3,14 @@ import React from 'react';
 import { useState, useEffect, useReducer } from "react";
 // eslint-disable-next-line no-unused-vars
 import ReactDOM from 'react-dom';
-import DUMMY_MEALS from "./DUMMY_MEALS";
 import * as fromCartReducer from './CartReducer';
+import * as fromCartActions from './CartActions';
 
 
 const MealsContext = React.createContext({
   mealsAvailable: [],
   mealsInCart: [],
+  totalMealsCount: 0,
   addMealToCart: () => {},
   deleteMealFromCart: () => {}
 });
@@ -17,14 +18,11 @@ const MealsContext = React.createContext({
 export const MealsProvider = (props) => {
 
   // eslint-disable-next-line no-unused-vars
-  const [mealsAvailable, setMealsAvailable] = useState(DUMMY_MEALS);
-
-  // eslint-disable-next-line no-unused-vars
   const [cartState, dispatchCartAction] = useReducer(fromCartReducer.cartReducer,
     fromCartReducer.cartInitialState);
   
   const addMealsToCartHandler = (payload) => {
-    console.log(payload);
+    dispatchCartAction({ type: fromCartActions.MEAL_ADD_START, payload: payload });
   };
 
   const deleteMealsFromCartHandler = (payload) => {
@@ -34,8 +32,9 @@ export const MealsProvider = (props) => {
   return (
     <MealsContext.Provider 
       value={ {
-        mealsAvailable: mealsAvailable,
+        mealsAvailable: cartState.mealsAvailable,
         mealsInCart: cartState.itemsInCart,
+        totalMealsCount: cartState.totalItemsCount,
         addMealToCart: addMealsToCartHandler,
         deleteMealFromCart: deleteMealsFromCartHandler
       } } >
