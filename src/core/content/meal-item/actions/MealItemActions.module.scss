@@ -1,5 +1,8 @@
 .form {
-  text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
 }
 
 .form button {
@@ -11,6 +14,14 @@
   padding: 0.25rem 2rem;
   border-radius: 20px;
   font-weight: bold;
+}
+
+.form button:disabled, .form button:disabled:hover {
+  color: #ccc;
+  border: 1px solid #ccc;
+  background-color: rgb(85, 80, 80);
+  color: #ccc;
+  cursor: not-allowed;
 }
 
 .form button:hover,

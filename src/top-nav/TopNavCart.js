@@ -3,19 +3,39 @@ import classes from './TopNavCart.module.scss';
 import CartIcon from './CartIcon';
 // eslint-disable-next-line no-unused-vars
 import React, { useEffect, useReducer, useState, useContext } from 'react';
-import MealsContext from '../core/store/MealsContext';
 
-const TopNavCart = () => {
+const TopNavCart = (props) => {
 
-  const cartContext = useContext(MealsContext);
+  const [btnIsHighlighted, setBtnIsHighlighted] = useState(false);
+
+  const cartOpenHandler = () => {
+    props.onCartClick();
+  };
+
+  useEffect(() => {
+    if (props.totalMealsCount === 0) {
+      return;
+    }
+    setBtnIsHighlighted(true);
+
+    const timer = setTimeout(() => {
+      setBtnIsHighlighted(false);
+    }, 300);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [props.totalMealsCount]);
+
+  const btnClasses = `${classes.button} ${btnIsHighlighted ? classes.bump : ''}`;
 
   return (
-    <button className={ classes.button }>
+    <button className={ `${classes.button} ${btnClasses}` } onClick={ cartOpenHandler }>
       <span className={ classes.icon }>
         <CartIcon />
       </span>
       <span>Your Cart</span>
-      <span className={ classes.badge }>{ cartContext.totalMealsCount }</span>
+      <span className={ classes.badge }>{ props.totalMealsCount }</span>
     </button>
   );
 };

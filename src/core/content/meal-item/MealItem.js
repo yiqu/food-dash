@@ -25,7 +25,7 @@ const MealItem = (props) => {
       <div>
         <h3>{info.name}</h3>
         <div className={ styles.description }>{info.description}</div>
-        <div className={ styles.price }>{info.price}</div>
+        <div className={ styles.price }>${info.price}</div>
       </div>
       <React.Fragment>
         <MealItemActions item={ info } onAddAction={ addActionHandler }></MealItemActions>

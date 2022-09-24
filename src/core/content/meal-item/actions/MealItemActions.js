@@ -27,7 +27,7 @@ const MealItemActions = (props) => {
           onChange: inputChangeHandler
         } }
       />
-      <button onClick={ mealAddActionHandlder }>+ Add</button>
+      <button onClick={ mealAddActionHandlder } disabled={ amountState < 1 }>+ Add</button>
     </form>
   );
 };

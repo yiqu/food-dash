@@ -11,6 +11,7 @@ const MealsContext = React.createContext({
   mealsAvailable: [],
   mealsInCart: [],
   totalMealsCount: 0,
+  totalMealsCost: 0,
   addMealToCart: () => {},
   deleteMealFromCart: () => {}
 });
@@ -26,7 +27,7 @@ export const MealsProvider = (props) => {
   };
 
   const deleteMealsFromCartHandler = (payload) => {
-    console.log(payload);
+    dispatchCartAction({ type: fromCartActions.MEAL_DELETE_START, payload: payload });
   };
 
   return (
@@ -35,6 +36,7 @@ export const MealsProvider = (props) => {
         mealsAvailable: cartState.mealsAvailable,
         mealsInCart: cartState.itemsInCart,
         totalMealsCount: cartState.totalItemsCount,
+        totalMealsCost: cartState.totalMealsCost,
         addMealToCart: addMealsToCartHandler,
         deleteMealFromCart: deleteMealsFromCartHandler
       } } >
