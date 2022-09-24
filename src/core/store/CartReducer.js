@@ -22,7 +22,7 @@ export const cartReducer = (state, action) => {
     } else {
       const newMeal = {
         ...action.payload.meal,
-        countInCart: 1
+        countInCart: action.payload.amount
       };
       mealsInCartResult.unshift(newMeal);
     }

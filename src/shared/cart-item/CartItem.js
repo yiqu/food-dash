@@ -24,7 +24,7 @@ const CartItem = (props) => {
       <div>
         <h2>{props.item.name}</h2>
         <div className={ styles.summary }>
-          <div className={ styles.price }>{props.item.price}</div>
+          <div className={ styles.price }>${props.item.price}</div>
           <div className={ styles.amount }>x {props.item.countInCart}</div>
           <div className={ styles.amount }>= ${(Math.trunc(props.item.price * props.item.countInCart * 100) / 100)}</div>
         </div>
