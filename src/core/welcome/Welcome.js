@@ -7,9 +7,11 @@ import styles from './Welcome.module.scss';
 import { useDeepCompareEffect, useShallowCompareEffect, useCustomCompareEffect,
   // eslint-disable-next-line no-unused-vars
   useLifecycles } from 'react-use';
-
+import useWhyDidYouUpdate from '../../shared/hooks/whyDidYouUpdate';
 
 const WelcomeMessage = (props) => {
+
+  useWhyDidYouUpdate("WelcomeMessage", props);
 
   const prevCount = usePrevious(props);
 
