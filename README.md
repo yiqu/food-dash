@@ -11,8 +11,17 @@
 - ```useReducer``` - Managing complex states with initial state and dispatching actions to modify states.
 - ```useContext``` - Easy to pass states down to nested components without props chaining.
 - ```forwardRef``` - Turning a component into a ref() to call its functions from parent.
+- ```useMemo``` - Memoize a object only ru-run based on dependencies.
+
+
+## Backend utilized
+- ```firebase``` - Dynamic JSON database.
 
 
 ## Lib used
-- ```react-use``` - Lot of premade hooks
-- ```use-hooks``` - Recipe of common hooks (https://usehooks.com/)
+- ```react-use``` - Common premade hooks. (https://github.com/streamich/react-use)
+- ```firebase-hooks``` - A set of reusable React Hooks for Firebase. (https://github.com/CSFrequency/react-firebase-hooks/)
+
+
+## References
+- ```use-hooks``` - Recipe of common hooks. (https://usehooks.com/)
