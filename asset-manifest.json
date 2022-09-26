@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/food-dash/static/css/main.e1a5fefe.css",
-    "main.js": "/food-dash/static/js/main.37f1e420.js",
+    "main.js": "/food-dash/static/js/main.ba8d0ca7.js",
     "static/js/787.29f363c4.chunk.js": "/food-dash/static/js/787.29f363c4.chunk.js",
     "index.html": "/food-dash/index.html",
     "main.e1a5fefe.css.map": "/food-dash/static/css/main.e1a5fefe.css.map",
-    "main.37f1e420.js.map": "/food-dash/static/js/main.37f1e420.js.map",
+    "main.ba8d0ca7.js.map": "/food-dash/static/js/main.ba8d0ca7.js.map",
     "787.29f363c4.chunk.js.map": "/food-dash/static/js/787.29f363c4.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.e1a5fefe.css",
-    "static/js/main.37f1e420.js"
+    "static/js/main.ba8d0ca7.js"
   ]
 }
