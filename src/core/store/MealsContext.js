@@ -13,12 +13,13 @@ const MealsContext = React.createContext({
   totalMealsCount: 0,
   totalMealsCost: 0,
   addMealToCart: () => {},
-  deleteMealFromCart: () => {}
+  deleteMealFromCart: () => {},
+  refreshMenu: () => {}
 });
 
 export const MealsProvider = (props) => {
 
-  // eslint-disable-next-line no-unused-vars
+  // eslint-disable-next-line no-unused-vars 
   const [cartState, dispatchCartAction] = useReducer(fromCartReducer.cartReducer,
     fromCartReducer.cartInitialState);
   
@@ -30,6 +31,10 @@ export const MealsProvider = (props) => {
     dispatchCartAction({ type: fromCartActions.MEAL_DELETE_START, payload: payload });
   };
 
+  const refreshMenuHandler = () => {
+    dispatchCartAction({ type: fromCartActions.REFRESH_MENU_START });
+  };
+
   return (
     <MealsContext.Provider 
       value={ {
@@ -38,7 +43,8 @@ export const MealsProvider = (props) => {
         totalMealsCount: cartState.totalItemsCount,
         totalMealsCost: cartState.totalMealsCost,
         addMealToCart: addMealsToCartHandler,
-        deleteMealFromCart: deleteMealsFromCartHandler
+        deleteMealFromCart: deleteMealsFromCartHandler,
+        refreshMenu: refreshMenuHandler
       } } >
       { props.children }
     </MealsContext.Provider>

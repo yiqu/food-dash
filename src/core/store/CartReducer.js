@@ -10,6 +10,7 @@ export const cartInitialState = {
 };
 
 export const cartReducer = (state, action) => {
+
   if (action.type === fromCartActions.MEAL_ADD_START) {
 
     const indexOfMealToAdd = state.itemsInCart.findIndex((meal) => {
@@ -38,7 +39,8 @@ export const cartReducer = (state, action) => {
       totalItemsCount: totalCount,
       totalMealsCost: totalCost
     };
-  }
+  };
+
   if (action.type === fromCartActions.MEAL_DELETE_START) {
     const mealsInCartResult = JSON.parse(JSON.stringify(state.itemsInCart));
     const indexOfMeal = state.itemsInCart.findIndex((meal) => {
@@ -61,7 +63,22 @@ export const cartReducer = (state, action) => {
       totalItemsCount: totalCount,
       totalMealsCost: totalCost
     };
-  }
+  };
+
+  if (action.type === fromCartActions.REFRESH_MENU_START) { 
+    const newMenu = [...state.mealsAvailable];
+    newMenu.unshift({
+      id: Math.random() + '',
+      name: new Date().getTime(),
+      description: 'Random meal name',
+      price: 24,
+    });
+    return {
+      ...state,
+      mealsAvailable: newMenu
+    };
+  };
+
   return {
     ...state
   };
