@@ -8,6 +8,10 @@ const HoursOpen = (props) => {
 
   console.log("Hours Open running");
 
+  let expensiveCalc = useMemo(() => {
+    return Math.random() + props.hours;
+  }, []);
+
   return (
     <div className='container'>
       { props.hours }

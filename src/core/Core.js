@@ -36,9 +36,6 @@ const Core = () => {
     setHoursOpen(new Date().getTime() + '');
   };
 
-  let expensiveCalc = useMemo(() => {
-    return hoursOpen;
-  }, []);
 
   return (
     <div className={ `${themeContext.theme.currentTheme} dash-parent` }>
@@ -48,7 +45,7 @@ const Core = () => {
 
         <WelcomeMessage date={ time } user={ user }/>
 
-        <HoursOpen hours={ expensiveCalc }/>
+        <HoursOpen hours={ hoursOpen }/>
         
         <div className='container'>
           <button onClick={ updateWelcomeDate } className="btn btn-outline-light" >Update Date {time}</button>
