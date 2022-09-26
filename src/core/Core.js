@@ -1,12 +1,13 @@
 // eslint-disable-next-line no-unused-vars
 import styles from './Core.module.scss';
 // eslint-disable-next-line no-unused-vars
-import React, { useEffect, useReducer, useState, useContext } from 'react';
+import React, { useEffect, useReducer, useState, useContext, useMemo } from 'react';
 import AppThemeContext from '../store/context/theme-context';
 import TopNav from '../top-nav/TopNav';
 import WelcomeMessage from './welcome/Welcome';
 import Content from './content/Content';
 import { MealsProvider } from './store/MealsContext';
+import HoursOpen from './hours-open/HoursOpen';
 
 const Core = () => {
 
@@ -19,6 +20,7 @@ const Core = () => {
       last: 'Q'
     }
   });
+  const [hoursOpen, setHoursOpen] = useState('7am - 3pm');
 
   const updateWelcomeDate = () => {
     setTime(new Date().getTime());
@@ -30,6 +32,14 @@ const Core = () => {
     });
   };
 
+  const updateHoursOpen = () => {
+    setHoursOpen(new Date().getTime() + '');
+  };
+
+  let expensiveCalc = useMemo(() => {
+    return hoursOpen;
+  }, []);
+
   return (
     <div className={ `${themeContext.theme.currentTheme} dash-parent` }>
       <MealsProvider>
@@ -38,9 +48,12 @@ const Core = () => {
 
         <WelcomeMessage date={ time } user={ user }/>
 
+        <HoursOpen hours={ expensiveCalc }/>
+        
         <div className='container'>
-          <button onClick={ updateWelcomeDate } className="btn btn-outline-light" >Date {time}</button>
-          <button onClick={ updateWelcomeUser } className="btn btn-outline-light" >User {user.name.first}</button>
+          <button onClick={ updateWelcomeDate } className="btn btn-outline-light" >Update Date {time}</button>
+          <button onClick={ updateWelcomeUser } className="btn btn-outline-light" >Update User {user.name.first}</button>
+          <button onClick={ updateHoursOpen } className="btn btn-outline-light" >Set hours open</button>
         </div>
   
         <Content />

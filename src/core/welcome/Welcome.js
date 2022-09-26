@@ -29,7 +29,7 @@ const WelcomeMessage = (props) => {
   }, [prevCount?.user?.name, props.user.name]);
 
   useDeepCompareEffect(() => {
-    console.log("effecting ", props.user);
+    //console.log("effecting ", props.user);
   }, [props]);
 
   return (
