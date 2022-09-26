@@ -20,7 +20,13 @@ const Core = () => {
       last: 'Q'
     }
   });
-  const [hoursOpen, setHoursOpen] = useState('7am - 3pm');
+  const [hoursOpen, setHoursOpen] = useState({
+    hoursOpen: {
+      start: '8am',
+      end: '4pm'
+    },
+    dateSet: new Date().getTime()
+  });
 
   const updateWelcomeDate = () => {
     setTime(new Date().getTime());
@@ -33,7 +39,13 @@ const Core = () => {
   };
 
   const updateHoursOpen = () => {
-    setHoursOpen(new Date().getTime() + '');
+    setHoursOpen({
+      hoursOpen: {
+        start: '8am',
+        end: Math.round(4 + Math.random() * (5-4)) + 'pm'
+      },
+      dateSet: new Date().getTime()
+    });
   };
 
 
@@ -48,9 +60,9 @@ const Core = () => {
         <HoursOpen hours={ hoursOpen }/>
         
         <div className='container'>
-          <button onClick={ updateWelcomeDate } className="btn btn-outline-light" >Update Date {time}</button>
-          <button onClick={ updateWelcomeUser } className="btn btn-outline-light" >Update User {user.name.first}</button>
-          <button onClick={ updateHoursOpen } className="btn btn-outline-light" >Set hours open</button>
+          <button onClick={ updateWelcomeDate } className="btn btn-outline-light mr-2" >Update Date {new Date(time).toLocaleTimeString()}</button>
+          <button onClick={ updateWelcomeUser } className="btn btn-outline-light mr-2" >Update User ({user.name.first})</button>
+          <button onClick={ updateHoursOpen } className="btn btn-outline-light mr-2" >Set hours open (to 4pm or 5pm)</button>
         </div>
   
         <Content />

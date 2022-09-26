@@ -7,29 +7,26 @@ import styles from './Welcome.module.scss';
 import { useDeepCompareEffect, useShallowCompareEffect, useCustomCompareEffect,
   // eslint-disable-next-line no-unused-vars
   useLifecycles } from 'react-use';
+// eslint-disable-next-line no-unused-vars
 import useWhyDidYouUpdate from '../../shared/hooks/whyDidYouUpdate';
 
 const WelcomeMessage = (props) => {
 
-  useWhyDidYouUpdate("WelcomeMessage", props);
+  // useWhyDidYouUpdate("WelcomeMessage", props);
 
   const prevCount = usePrevious(props);
 
-  // // memoize the value. only change if the name property has changed
-  // const memoized = useMemo(() => {
-  //   const res = createObject(props);
-  //   return res;
-  // }, [props]);
-
   useEffect(() => {
-    // only run some code if name changed
+    // compare changes by previous values
     if (prevCount?.user?.name.first !== props.user.name.first) {
-      //console.log("running effect for ", props.user.name);
+
     }
   }, [prevCount?.user?.name, props.user.name]);
 
+
+  // use deep compare instead
   useDeepCompareEffect(() => {
-    //console.log("effecting ", props.user);
+    // console.log('changes actually happened', props.user.name.first);
   }, [props]);
 
   return (
@@ -50,7 +47,7 @@ const WelcomeMessage = (props) => {
               {props.user.name.first}
             </div>
             <div>
-              { new Date(props.date).toDateString() }
+              { new Date(props.date).toLocaleTimeString() }
             </div>
           </div>
         </div>
