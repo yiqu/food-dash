@@ -5,19 +5,36 @@ import { useState, useEffect, useReducer } from "react";
 import ReactDOM from 'react-dom';
 import * as fromCartReducer from './CartReducer';
 import * as fromCartActions from './CartActions';
-
+import { useCollection } from 'react-firebase-hooks/firestore';
+import { menuRef } from '../api/MenuApi';
 
 const MealsContext = React.createContext({
   mealsAvailable: [],
   mealsInCart: [],
   totalMealsCount: 0,
   totalMealsCost: 0,
+  menuLoaded: false,
+  menuError: false,
   addMealToCart: () => {},
   deleteMealFromCart: () => {},
   refreshMenu: () => {}
 });
 
 export const MealsProvider = (props) => {
+
+  const [menuItems, menuLoading, menuError] = useCollection(menuRef, {});
+
+  useEffect(() => {
+    if (menuItems) {
+      const result = menuItems.docs.map((res) => {
+        return {
+          ...res.data(),
+          id: res.id
+        };
+      });
+      dispatchCartAction({ type: fromCartActions.GET_ALL_MENU, payload: result });
+    }
+  }, [menuItems]);
 
   // eslint-disable-next-line no-unused-vars 
   const [cartState, dispatchCartAction] = useReducer(fromCartReducer.cartReducer,
@@ -39,6 +56,8 @@ export const MealsProvider = (props) => {
     <MealsContext.Provider 
       value={ {
         mealsAvailable: cartState.mealsAvailable,
+        menuLoaded: !menuLoading,
+        menuError: menuError,
         mealsInCart: cartState.itemsInCart,
         totalMealsCount: cartState.totalItemsCount,
         totalMealsCost: cartState.totalMealsCost,

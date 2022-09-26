@@ -14,6 +14,14 @@ const Content = () => {
     cartContext.refreshMenu();
   };
 
+  let content = <>Loading...</>;
+
+  if (cartContext.menuLoaded) {
+    content = cartContext.mealsAvailable.map((res) => {
+      return <MealItem mealInfo={ res } key={ res.id }></MealItem>;
+    });
+  }
+
   useEffect(() => {
     document.title = `${cartContext.totalMealsCount > 0 ? '('+cartContext.totalMealsCount+')' : ''} Food Dash`;
   }, [cartContext.totalMealsCount]);
@@ -26,11 +34,7 @@ const Content = () => {
           <button onClick={ refreshMenu } className="btn btn-outline-light ml-2">Refresh menu</button>
         </div>
         <div>
-          { 
-            cartContext.mealsAvailable.map((res) => {
-              return <MealItem mealInfo={ res } key={ res.id }></MealItem>;
-            })
-          }
+          { content }
         </div>
       </div>
     </div>

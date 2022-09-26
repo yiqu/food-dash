@@ -79,6 +79,13 @@ export const cartReducer = (state, action) => {
     };
   };
 
+  if (action.type === fromCartActions.GET_ALL_MENU) { 
+    return {
+      ...state,
+      mealsAvailable: action.payload
+    };
+  };
+
   return {
     ...state
   };
