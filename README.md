@@ -11,3 +11,8 @@
 - ```useReducer``` - Managing complex states with initial state and dispatching actions to modify states.
 - ```useContext``` - Easy to pass states down to nested components without props chaining.
 - ```forwardRef``` - Turning a component into a ref() to call its functions from parent.
+
+
+## Lib used
+- ```react-use``` - Lot of premade hooks
+- ```use-hooks``` - Recipe of common hooks (https://usehooks.com/)
