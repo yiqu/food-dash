@@ -11,5 +11,7 @@ export const GET_CART_SUCCESS = '[Cart/API] Get cart meals successfully';
 export const GET_CART_ERROR = '[Cart/API] Get cart meals failed';
 
 export const MEAL_DELETE_START = '[Cart/UI] Remove meals from cart start';
+export const MEAL_DELETE_SUCCESS = '[Cart/UI] Remove meals from cart successfully';
+export const MEAL_DELETE_FAILED = '[Cart/UI] Remove meals from cart failed';
 
 export const REFRESH_MENU_START = '[Cart/API] Refresh menu start';
