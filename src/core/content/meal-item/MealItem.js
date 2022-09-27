@@ -28,7 +28,7 @@ const MealItem = (props) => {
         <div className={ styles.price }>${info.price}</div>
       </div>
       <React.Fragment>
-        <MealItemActions item={ info } onAddAction={ addActionHandler }></MealItemActions>
+        <MealItemActions item={ info } onAddAction={ addActionHandler } isLoading={ cartContext.cartLoading }></MealItemActions>
       </React.Fragment>
     </li>
   );

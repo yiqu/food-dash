@@ -11,12 +11,12 @@ const Content = () => {
   const cartContext = useContext(MealsContext);
 
   const refreshMenu = () => {
-    cartContext.refreshMenu();
+    //cartContext.refreshMenu();
   };
 
   let content = <>Loading...</>;
 
-  if (cartContext.menuLoaded) {
+  if (!cartContext.menuLoading) {
     content = cartContext.mealsAvailable.map((res) => {
       return <MealItem mealInfo={ res } key={ res.id }></MealItem>;
     });
@@ -29,9 +29,15 @@ const Content = () => {
   return (
     <div className={ `container py-3` }>
       <div className={ `${styles.parent}` }>
-        <div className={ `d-flex justify-content-center fs-25 poppins ${styles['menu-title']}` }>
-          Our menu
-          <button onClick={ refreshMenu } className="btn btn-outline-light ml-2">Refresh menu</button>
+        <div className={ `d-flex justify-content-between fs-25 poppins ${styles['menu-title']}` }>
+          <div className="w-33p"></div>
+          <div className="w-33p">
+            Our menu
+            <button onClick={ refreshMenu } className="btn btn-outline-light ml-2" disabled={ cartContext.menuLoading }>Refresh menu</button>
+          </div>
+          <div className="w-33p d-flex justify-content-end fs-18 align-items-center">
+            { cartContext.cartLoading ? 'Adding to cart...' : '' }
+          </div>
         </div>
         <div>
           { content }

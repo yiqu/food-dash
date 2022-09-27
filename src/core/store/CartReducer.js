@@ -1,16 +1,26 @@
 import * as  fromCartActions from './CartActions';
-import DUMMY_MEALS from './DUMMY_MEALS';
 
 export const cartInitialState = {
   apiLoading: false,
-  mealsAvailable: [...DUMMY_MEALS],
+  mealsAvailable: [],
   itemsInCart: [],
   totalItemsCount: 0,
-  totalMealsCost: 0
+  totalMealsCost: 0,
+
+  isMenuLoading: false,
+  menuError: undefined,
+
+  isCartAddLoading: false,
+  cartAddError: undefined,
+
+  isCartGetLoading: false,
+  cartGetLastFetch: 0,
+  itemsInCart2: [],
+  cartGetError: undefined
 };
 
 export const cartReducer = (state, action) => {
-
+  console.log(action);
   if (action.type === fromCartActions.MEAL_ADD_START) {
 
     const indexOfMealToAdd = state.itemsInCart.findIndex((meal) => {
@@ -37,9 +47,25 @@ export const cartReducer = (state, action) => {
       ...state,
       itemsInCart: mealsInCartResult,
       totalItemsCount: totalCount,
-      totalMealsCost: totalCost
+      totalMealsCost: totalCost,
+      isCartAddLoading: true
     };
   };
+
+  if (action.type === fromCartActions.MEAL_ADD_SUCCESS) {
+    return {
+      ...state,
+      isCartAddLoading: false
+    };
+  }
+
+  if (action.type === fromCartActions.MEAL_ADD_ERROR) {
+    return {
+      ...state,
+      isCartAddLoading: false,
+      cartAddError: action.payload
+    };
+  }
 
   if (action.type === fromCartActions.MEAL_DELETE_START) {
     const mealsInCartResult = JSON.parse(JSON.stringify(state.itemsInCart));
@@ -82,7 +108,72 @@ export const cartReducer = (state, action) => {
   if (action.type === fromCartActions.GET_ALL_MENU) { 
     return {
       ...state,
+      isMenuLoading: true
+    };
+  };
+
+  if (action.type === fromCartActions.GET_ALL_MENU_SUCCESS) { 
+    return {
+      ...state,
+      isMenuLoading: false,
       mealsAvailable: action.payload
+    };
+  };
+
+  if (action.type === fromCartActions.GET_ALL_MENU_FAILED) { 
+    return {
+      ...state,
+      isMenuLoading: false,
+      menuError: action.payload
+    };
+  };
+
+  if (action.type === fromCartActions.GET_CART_START) { 
+    return {
+      ...state,
+      isCartGetLoading: true,
+      cartGetLastFetch: new Date().getTime()
+    };
+  };
+
+  if (action.type === fromCartActions.GET_CART_SUCCESS) { 
+    let totalItemsInCart = 0;
+    let totalCost = 0;
+    const mealsInCartResult= [];
+    const mealsInCartResultObj = {};
+
+    action.payload.forEach((mealItem) => {
+      totalItemsInCart = totalItemsInCart + mealItem.amount;
+      totalCost = totalCost + ((+mealItem.amount) * (+mealItem.meal.price));
+      
+      const exist = !!mealsInCartResultObj[mealItem.meal.id];
+      if (exist) {
+        mealsInCartResultObj[mealItem.meal.id].countInCart = mealsInCartResultObj[mealItem.meal.id].countInCart + mealItem.amount;
+      } else {
+        mealsInCartResultObj[mealItem.meal.id] = {
+          ...mealItem.meal,
+          countInCart: (+mealItem.amount)
+        };
+      }
+    });
+
+    for (const property in mealsInCartResultObj) {
+      mealsInCartResult.push(mealsInCartResultObj[property]);
+    }
+    return {
+      ...state,
+      isCartGetLoading: false,
+      itemsInCart2: mealsInCartResult,
+      totalItemsCount: totalItemsInCart,
+      totalMealsCost: totalCost
+    };
+  };
+
+  if (action.type === fromCartActions.GET_CART_ERROR) { 
+    return {
+      ...state,
+      isCartGetLoading: false,
+      cartGetError: action.payload
     };
   };
 
