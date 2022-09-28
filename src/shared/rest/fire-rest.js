@@ -1,14 +1,17 @@
 // eslint-disable-next-line no-unused-vars
-import { collection, doc, setDoc, getDocs, getDoc } from "firebase/firestore"; 
+import { collection, doc, setDoc, getDocs, getDoc, updateDoc } from "firebase/firestore"; 
 import { fireDatabase } from '../../Firebase';
 
 
 export const menuRef = collection(fireDatabase, "menu");
-//export const welcomeRef = doc(fireDatabase, "welcome", "uYvVP7o6Y1RtmUrmjP2F");
 export const welcomeRef = collection(fireDatabase, "welcome");
 
 export const createCollectionDbRef = (pathArray) => {
   return collection(fireDatabase, ...pathArray);
+};
+
+export const createDocDbRef = (pathArray) => {
+  return doc(fireDatabase, ...pathArray);
 };
 
 export const getCollection = async (pathArray) => {
@@ -42,12 +45,21 @@ export const getWelcomeMessageArray = async (pathArray) => {
   const messageArray = [];
   querySnapshot.forEach((doc) => {
     //console.log(doc.id, " => ", doc.data());
-    messageArray.push(
-      doc.data().motd,
-      doc.data().motd2
-    );
+    messageArray.push({
+      id: doc.id,
+      messages: doc.data()
+    });
   });
-  return messageArray;
+  const result = messageArray[0];
+  return result;
 };
 
+
+export const updateWelcome = async (pathArray, message) => {
+  const welcomeRef = createDocDbRef(['welcome', ...pathArray]);
+  const res = await updateDoc(welcomeRef, {
+    ...message
+  });
+  return res;
+};
 

@@ -6,9 +6,9 @@ import ReactDOM from 'react-dom';
 import * as fromCartReducer from './CartReducer';
 import * as fromCartActions from './CartActions';
 import { useCollection } from 'react-firebase-hooks/firestore';
-import { menuRef } from '../api/MenuApi';
+import { menuRef } from '../../shared/rest/fire-rest';
 import { convertDataToCollection, mapToDataWithId } from './firebase-utils';
-import { axiosPost, axiosGet } from '../../shared/rest/firebase-rest';
+import { axiosPost, axiosGet } from '../../shared/rest/axios-rest';
 import { useUpdateEffect, useEffectOnce } from 'react-use';
 
 const MealsContext = React.createContext({

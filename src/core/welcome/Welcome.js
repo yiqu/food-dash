@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useContext } from 'react';
 import usePrevious from '../../shared/hooks/usePrevious';
 import styles from './Welcome.module.scss';
 import useSWR from 'swr';
@@ -7,39 +7,40 @@ import { useDeepCompareEffect, useShallowCompareEffect, useCustomCompareEffect,
   useLifecycles } from 'react-use';
 import useWhyDidYouUpdate from '../../shared/hooks/whyDidYouUpdate';
 import { WELCOME_FETCHER_ID } from "./store/welcome-fetcher";
+import WelcomeContext from './store/WelcomeContext';
+import { generateRandomMessages } from './store/welcome-utils';
+import useWelcome from './store/hooks/useWelcome';
+
+
 
 const WelcomeMessage = (props) => {
 
-  const { data: welcomeData, error } = useSWR(WELCOME_FETCHER_ID);
-  
+  const welcomeContext = useContext(WelcomeContext);
+
+  const { welcomeData, isError, isFirstTimeLoading, isUpdating, setWelcomeData } = useWelcome();
+
   const welcomeMessages = useMemo(() => {
     return (
       <React.Fragment>
-        { !welcomeData && <div>Loading...</div>}
-        { welcomeData && (welcomeData.map((msg, index) => {
-          return <div key={ msg } className={ index === 0 ? (styles.top) : (styles.bottom) }>
-            { msg }
-          </div>;
-        })) }
+        { isFirstTimeLoading ? (<div>Loading...</div>) :
+          (
+            welcomeData.map((msg, index, arr) => {
+              return <div key={ msg } className={ index === 0 ? (styles.top) : (styles.bottom) }>
+                { msg } { index !== arr.length-1 ? ',' : '' }
+              </div>;
+            })
+          )
+        }   
       </React.Fragment>
-     
     );
-  }, [welcomeData]);
+  }, [welcomeData, isFirstTimeLoading]);
 
   const refreshWelcomeMessage = () => {
+    setWelcomeData(generateRandomMessages());
   };
 
   // useWhyDidYouUpdate("WelcomeMessage", props);
-
   const prevCount = usePrevious(props);
-
-  useEffect(() => {
-    // compare changes by previous values
-    if (prevCount?.user?.name.first !== props.user.name.first) {
-
-    }
-  }, [prevCount?.user?.name, props.user.name]);
-
 
   // use deep compare instead
   useDeepCompareEffect(() => {
@@ -52,8 +53,13 @@ const WelcomeMessage = (props) => {
         { welcomeMessages}
         <div className='w-100 d-flex justify-content-between'>
           <div className="d-flex align-items-end">
-            <div>
-              <button className="btn btn-outline-light" onClick={ refreshWelcomeMessage }>Refresh</button>
+            <div className='d-flex fs-12 align-items-center font-weight-light'>
+              <div>
+                <button className="btn btn-outline-light mr-2" onClick={ refreshWelcomeMessage }>Refresh</button>
+              </div>
+              <div>
+                { isUpdating && 'Updating...'}
+              </div>
             </div>
           </div>
           <div>

@@ -1,20 +1,21 @@
 // eslint-disable-next-line no-unused-vars
 import styles from './Core.module.scss';
 // eslint-disable-next-line no-unused-vars
-import React, { useEffect, useReducer, useState, useContext, useMemo } from 'react';
+import React, { useEffect, useReducer, useState, useContext, useMemo, useCallback } from 'react';
 import AppThemeContext from '../store/context/theme-context';
 import TopNav from '../top-nav/TopNav';
 import WelcomeMessage from './welcome/Welcome';
 import Content from './content/Content';
 import { MealsProvider } from './store/MealsContext';
 import HoursOpen from './hours-open/HoursOpen';
-import SWRWelcome from "./welcome/store/swr";
+import SWRWelcome from "./welcome/store/SWRWelcome";
+import { WelcomeProvider } from './welcome/store/WelcomeContext';
 
 const Core = () => {
 
   const themeContext = useContext(AppThemeContext);
 
-  const [time, setTime] = useState(new Date().getTime());
+  const [time, setTime] = useState(0);
   const [user, setUser] = useState({
     name: {
       first: 'Kevin',
@@ -49,6 +50,10 @@ const Core = () => {
     });
   };
 
+  const onWelcomeSuccesHandler = useCallback(() => {
+    setTime(new Date().getTime());
+  }, []);
+
 
   return (
     <div className={ `${themeContext.theme.currentTheme} dash-parent` }>
@@ -56,9 +61,16 @@ const Core = () => {
 
         <TopNav />
 
-        <SWRWelcome>
-          <WelcomeMessage date={ time } user={ user }/>
-        </SWRWelcome>
+        
+        <WelcomeProvider>
+
+          <SWRWelcome onWelcomeSucces={ onWelcomeSuccesHandler }>
+
+            <WelcomeMessage date={ time } user={ user }/>
+
+          </SWRWelcome>
+          
+        </WelcomeProvider>
 
         <HoursOpen hours={ hoursOpen }/>
         

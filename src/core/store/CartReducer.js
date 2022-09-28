@@ -19,7 +19,6 @@ export const cartInitialState = {
 };
 
 export const cartReducer = (state, action) => {
-  console.log(action);
   if (action.type === fromCartActions.MEAL_ADD_START) {
 
     return {
