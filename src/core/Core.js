@@ -8,6 +8,7 @@ import WelcomeMessage from './welcome/Welcome';
 import Content from './content/Content';
 import { MealsProvider } from './store/MealsContext';
 import HoursOpen from './hours-open/HoursOpen';
+import SWRWelcome from "./welcome/store/swr";
 
 const Core = () => {
 
@@ -55,7 +56,9 @@ const Core = () => {
 
         <TopNav />
 
-        <WelcomeMessage date={ time } user={ user }/>
+        <SWRWelcome>
+          <WelcomeMessage date={ time } user={ user }/>
+        </SWRWelcome>
 
         <HoursOpen hours={ hoursOpen }/>
         

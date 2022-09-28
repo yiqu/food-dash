@@ -1,16 +1,33 @@
-// eslint-disable-next-line no-unused-vars
-import { useEffect, useMemo } from 'react';
+/* eslint-disable no-unused-vars */
+import React, { useEffect, useMemo } from 'react';
 import usePrevious from '../../shared/hooks/usePrevious';
 import styles from './Welcome.module.scss';
-
-// eslint-disable-next-line no-unused-vars
+import useSWR from 'swr';
 import { useDeepCompareEffect, useShallowCompareEffect, useCustomCompareEffect,
-  // eslint-disable-next-line no-unused-vars
   useLifecycles } from 'react-use';
-// eslint-disable-next-line no-unused-vars
 import useWhyDidYouUpdate from '../../shared/hooks/whyDidYouUpdate';
+import { WELCOME_FETCHER_ID } from "./store/welcome-fetcher";
 
 const WelcomeMessage = (props) => {
+
+  const { data: welcomeData, error } = useSWR(WELCOME_FETCHER_ID);
+  
+  const welcomeMessages = useMemo(() => {
+    return (
+      <React.Fragment>
+        { !welcomeData && <div>Loading...</div>}
+        { welcomeData && (welcomeData.map((msg, index) => {
+          return <div key={ msg } className={ index === 0 ? (styles.top) : (styles.bottom) }>
+            { msg }
+          </div>;
+        })) }
+      </React.Fragment>
+     
+    );
+  }, [welcomeData]);
+
+  const refreshWelcomeMessage = () => {
+  };
 
   // useWhyDidYouUpdate("WelcomeMessage", props);
 
@@ -32,13 +49,13 @@ const WelcomeMessage = (props) => {
   return (
     <div className={ `${styles.parent} poppins container font-weight-bold` }>
       <section className={ `${styles.message} w-100` }>
-        <div className={ styles.top }>
-          Restaurants and more,
-        </div>
-        <div className={ styles.bottom }>
-          delivered to your door
-        </div>
-        <div className='w-100 d-flex justify-content-end'>
+        { welcomeMessages}
+        <div className='w-100 d-flex justify-content-between'>
+          <div className="d-flex align-items-end">
+            <div>
+              <button className="btn btn-outline-light" onClick={ refreshWelcomeMessage }>Refresh</button>
+            </div>
+          </div>
           <div>
             <div>
               Sincerely,
