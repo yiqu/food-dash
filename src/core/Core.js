@@ -72,7 +72,7 @@ const Core = () => {
           
         </WelcomeProvider>
 
-        <HoursOpen hours={ hoursOpen }/>
+        <HoursOpen hours={ hoursOpen } user={ user.name }/>
         
         <div className='container'>
           <button onClick={ updateWelcomeDate } className="btn btn-outline-light mr-2" >Update Date {new Date(time).toLocaleTimeString()}</button>

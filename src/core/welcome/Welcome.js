@@ -6,7 +6,7 @@ import useSWR from 'swr';
 import { useDeepCompareEffect, useShallowCompareEffect, useCustomCompareEffect,
   useLifecycles } from 'react-use';
 import useWhyDidYouUpdate from '../../shared/hooks/whyDidYouUpdate';
-import { WELCOME_FETCHER_ID } from "./store/welcome-fetcher";
+import { defaultFetcher, documentDefaultFetcher, WELCOME_FETCHER_ID } from "./store/welcome-fetcher";
 import WelcomeContext from './store/WelcomeContext';
 import { generateRandomMessages } from './store/welcome-utils';
 import useWelcome from './store/hooks/useWelcome';

@@ -13,6 +13,12 @@ const firstMessages = [
   "The flavors come from the culture of nature",
   "Giving your hunger a new option",
   "Your favourite food",
+  "Deliciousness twirling in your mouth",
+  "Restaurants and more",
+  "A life full of tasty food",
+  "The flavors come from the culture of nature",
+  "Giving your hunger a new option",
+  "Your favourite food",
   "Deliciousness twirling in your mouth"
 ];
 

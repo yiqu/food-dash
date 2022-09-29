@@ -26,6 +26,14 @@ export const getCollection = async (pathArray) => {
   return res;
 };
 
+export const getDocument = async (pathArray) => {
+  const docRef = createDocDbRef(pathArray);
+  const docSnap = await getDoc(docRef);
+  return docSnap.data();
+};
+
+
+
 export const getFullMenu = async () => {
   const querySnapshot = await getDocs(createCollectionDbRef(['menu']));
   const res = [];
