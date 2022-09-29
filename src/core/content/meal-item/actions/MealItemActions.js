@@ -1,7 +1,7 @@
 import styles from './MealItemActions.module.scss';
 import Input from '../../../../shared/input/Input';
 // eslint-disable-next-line no-unused-vars
-import { useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 
 const MealItemActions = (props) => {
   const [amountState, setAmountState] = useState(1);
@@ -21,7 +21,7 @@ const MealItemActions = (props) => {
       <Input
         label='Amount'
         input={ {
-          id: 'amount_' + props.item.id,
+          id: 'amount_' + props.itemId,
           type: 'number',
           value: amountState,
           onChange: inputChangeHandler
@@ -32,4 +32,4 @@ const MealItemActions = (props) => {
   );
 };
 
-export default MealItemActions;
+export default React.memo(MealItemActions);

@@ -30,11 +30,11 @@ const TopNavCart = (props) => {
   const btnClasses = `${classes.button} ${btnIsHighlighted ? classes.bump : ''}`;
 
   return (
-    <button className={ `${classes.button} ${btnClasses}` } onClick={ cartOpenHandler }>
+    <button className={ `${classes.button} ${btnClasses}` } onClick={ cartOpenHandler } disabled={ props.isLoading }>
       <span className={ classes.icon }>
         <CartIcon />
       </span>
-      <span>Your Cart</span>
+      <span>{ props.isLoading ? 'Loading...' : 'Your Cart' }  </span>
       <span className={ classes.badge }>{ props.totalMealsCount }</span>
     </button>
   );

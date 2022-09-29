@@ -20,6 +20,7 @@ const MealsContext = React.createContext({
   menuError: false,
   cartLoading: false,
   cartError: false,
+  cartFetchingLoading: false,
   addMealToCart: () => {},
   deleteMealFromCart: () => {},
   refreshMenu: () => {}
@@ -102,6 +103,7 @@ export const MealsProvider = (props) => {
         mealsInCart: cartState.itemsInCart2,
         totalMealsCount: cartState.totalItemsCount,
         totalMealsCost: cartState.totalMealsCost,
+        cartFetchingLoading: cartState.isCartGetLoading,
         addMealToCart: addMealsToCartHandler,
         deleteMealFromCart: deleteMealsFromCartHandler,
         refreshMenu: refreshMenuHandler

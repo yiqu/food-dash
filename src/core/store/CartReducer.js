@@ -76,8 +76,16 @@ export const cartReducer = (state, action) => {
   }
 
   if (action.type === fromCartActions.REFRESH_MENU_START) {
+    const newMenu = [...state.mealsAvailable];
+    newMenu.unshift({
+      id: Math.random() + '',
+      name: new Date().getTime(),
+      description: 'Random meal name',
+      price: 24,
+    });
     return {
-      ...state
+      ...state,
+      mealsAvailable: newMenu
     };
   };
 

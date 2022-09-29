@@ -47,7 +47,7 @@ const TopNav = () => {
     <>
       <div className={ `${styles.parent}` }>
         <TopNavTitle display={ appTitle }/>
-        <TopNavCart onCartClick={ onCartOpenHandler } totalMealsCount={ cartContext.totalMealsCount } />
+        <TopNavCart onCartClick={ onCartOpenHandler } totalMealsCount={ cartContext.totalMealsCount } isLoading={ cartContext.cartFetchingLoading }/>
       </div>
       <>
         { modalOpen.isOpen && (
@@ -62,4 +62,4 @@ const TopNav = () => {
   );
 };
 
-export default TopNav;
+export default React.memo(TopNav);
