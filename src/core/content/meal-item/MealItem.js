@@ -9,7 +9,6 @@ import MealsContext from '../../store/MealsContext';
 const MealItem = (props) => {
   const info = props.mealInfo;
   const cartContext = useContext(MealsContext);
-
   return (
     <li className={ styles.meal }>
       <div>

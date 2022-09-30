@@ -8,7 +8,6 @@ import HoursOpen from '../hours-open/HoursOpen';
 import MealsContext from '../store/MealsContext';
 
 export const Dashboard = () => {
-
   const [time, setTime] = useState(0);
   const [user, setUser] = useState({
     name: {
@@ -50,15 +49,12 @@ export const Dashboard = () => {
 
   return (
     <React.Fragment>
-      <WelcomeProvider>
 
-        <SWRWelcome onWelcomeSucces={ onWelcomeSuccesHandler }>
+      <SWRWelcome onWelcomeSucces={ onWelcomeSuccesHandler }>
 
-          <WelcomeMessage date={ time } user={ user }/>
+        <WelcomeMessage date={ time } user={ user }/>
 
-        </SWRWelcome>
-
-      </WelcomeProvider>
+      </SWRWelcome>
 
       <HoursOpen hours={ hoursOpen } user={ user.name }/>
 
@@ -71,4 +67,4 @@ export const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default React.memo(Dashboard);

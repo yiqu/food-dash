@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import useSWR, { SWRConfig } from 'swr';
 import { welcomeFetcher } from "./welcome-fetcher";
 
@@ -24,4 +24,4 @@ const SWRWelcome = (props) => {
   );
 };
 
-export default SWRWelcome;
+export default React.memo(SWRWelcome);
